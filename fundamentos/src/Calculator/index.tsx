@@ -7,75 +7,58 @@ type CalculatorProps = {
   result: number;
 };
 
+const buttons = [
+  [
+    { input: "CE" },
+    { input: "C", className: "flex-1 h-16" },
+    { input: "/", variant: "primary" },
+  ],
+  [
+    { input: "7" },
+    { input: "8" },
+    { input: "9" },
+    { input: "*", variant: "primary" },
+  ],
+  [
+    { input: "4" },
+    { input: "5" },
+    { input: "6" },
+    { input: "-", variant: "primary" },
+  ],
+  [
+    { input: "1" },
+    { input: "2" },
+    { input: "3" },
+    { input: "+", variant: "primary" },
+  ],
+  [
+    { input: "0", className: "flex-1 h-16" },
+    { input: "C" },
+    { input: "=", variant: "primary" },
+  ],
+];
+
 export function Calculator({ operation, result }: CalculatorProps) {
   return (
     <Card className="flex flex-col gap-[1.625rem] w-[22.25rem] pt-14 px-8 pb-8">
       <CalculatorDisplay operation={operation} result={result} />
+      {/* Keyboard */}
       <div className="flex flex-col gap-3">
-        <div className="flex gap-3">
-          <Button className="w-16 h-16" variant="default">
-            CE
-          </Button>
-          <Button className="flex-1 h-16" variant="default">
-            C
-          </Button>
-          <Button className="w-16 h-16" variant="primary">
-            /
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button className="w-16 h-16" variant="default">
-            7
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            8
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            9
-          </Button>
-          <Button className="w-16 h-16" variant="primary">
-            X
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button className="w-16 h-16" variant="default">
-            4
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            4
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            6
-          </Button>
-          <Button className="w-16 h-16" variant="primary">
-            -
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button className="w-16 h-16" variant="default">
-            1
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            2
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            3
-          </Button>
-          <Button className="w-16 h-16" variant="primary">
-            +
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button className="flex-1 h-16" variant="default">
-            0
-          </Button>
-          <Button className="w-16 h-16" variant="default">
-            ,
-          </Button>
-          <Button className="w-16 h-16" variant="primary">
-            =
-          </Button>
-        </div>
+        {buttons.map((row, index) => (
+          <div className="flex gap-3" key={`row-${index}`}>
+            {row.map((button) => (
+              <Button
+                className={`${
+                  button.className ? button.className : "w-16 h-16"
+                }`}
+                variant={(button.variant ?? "default") as "default" | "primary"}
+                key={button.input}
+              >
+                {button.input}
+              </Button>
+            ))}
+          </div>
+        ))}
       </div>
     </Card>
   );
