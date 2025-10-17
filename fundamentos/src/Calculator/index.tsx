@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "../Button";
 import { CalculatorDisplay } from "../CalculatorDisplay";
 import { Card } from "../Card";
@@ -33,14 +34,22 @@ const buttons = [
   ],
 ];
 
-function handleInputClick(input: string) {
-  console.log(input);
-}
-
 export function Calculator() {
+  const [operation, setOperation] = useState("");
+  const [result, setResult] = useState("");
+
+  function handleInputClick(input: string) {
+    if (input === "=") {
+      const operationResult = eval(operation);
+      setResult(operationResult);
+      return;
+    }
+    setOperation(`${operation} ${input}`);
+  }
+
   return (
     <Card className="flex flex-col gap-[1.625rem] w-[22.25rem] pt-14 px-8 pb-8">
-      <CalculatorDisplay operation="1 + 1" result={2} />
+      <CalculatorDisplay operation={operation} result={result} />
       {/* Keyboard */}
       <div className="flex flex-col gap-3">
         {buttons.map((row, index) => (
