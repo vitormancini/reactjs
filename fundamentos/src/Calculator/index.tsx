@@ -2,11 +2,6 @@ import { Button } from "../Button";
 import { CalculatorDisplay } from "../CalculatorDisplay";
 import { Card } from "../Card";
 
-type CalculatorProps = {
-  operation: string;
-  result: number;
-};
-
 const buttons = [
   [
     { input: "CE" },
@@ -38,10 +33,14 @@ const buttons = [
   ],
 ];
 
-export function Calculator({ operation, result }: CalculatorProps) {
+function handleInputClick(input: string) {
+  console.log(input);
+}
+
+export function Calculator() {
   return (
     <Card className="flex flex-col gap-[1.625rem] w-[22.25rem] pt-14 px-8 pb-8">
-      <CalculatorDisplay operation={operation} result={result} />
+      <CalculatorDisplay operation="1 + 1" result={2} />
       {/* Keyboard */}
       <div className="flex flex-col gap-3">
         {buttons.map((row, index) => (
@@ -53,6 +52,7 @@ export function Calculator({ operation, result }: CalculatorProps) {
                 }`}
                 variant={(button.variant ?? "default") as "default" | "primary"}
                 key={button.input}
+                onClick={() => handleInputClick(button.input)}
               >
                 {button.input}
               </Button>

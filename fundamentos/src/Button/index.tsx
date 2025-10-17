@@ -11,7 +11,7 @@ type ButtonProps = {
   variant: buttonVariant;
   children: React.ReactNode;
   className?: string | undefined;
-};
+} & React.ButtonHTMLAttributes<HTMLButtonElement>; // Habilita o uso de props extras
 
 export function Button({
   variant,
