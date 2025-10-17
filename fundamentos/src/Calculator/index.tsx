@@ -29,7 +29,7 @@ const buttons = [
   ],
   [
     { input: "0", className: "flex-1 h-16" },
-    { input: "C" },
+    { input: "," },
     { input: "=", variant: "primary" },
   ],
 ];
@@ -39,12 +39,39 @@ export function Calculator() {
   const [result, setResult] = useState("");
 
   function handleInputClick(input: string) {
-    if (input === "=") {
-      const operationResult = eval(operation);
-      setResult(operationResult);
+    if (input === "C") {
+      setOperation("");
+      setResult("");
       return;
     }
-    setOperation(`${operation} ${input}`);
+
+    if (input === "CE") {
+      setResult("");
+      setOperation(operation.slice(0, -1));
+      return;
+    }
+
+    if (input === "=") {
+      const operationResult = eval(
+        operation.replace(/,/g, ".").replace(/\s/g, "")
+      );
+      const parsedResult = operationResult.toString().replace(".", ",");
+      setResult(parsedResult);
+      return;
+    }
+
+    if (result) {
+      setOperation(isNaN(Number(input)) ? `${result}${input}` : input);
+      setResult("");
+      return;
+    }
+
+    if (input === "," && !operation.endsWith(",")) {
+      setOperation(`${operation},`);
+      return;
+    }
+
+    setOperation(`${operation}${input}`);
   }
 
   return (
