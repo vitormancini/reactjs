@@ -1,14 +1,7 @@
 import "./App.css";
-import { MeuComponente } from "./components/MeuComponente";
 
 function App() {
-  return (
-    <div>
-      <MeuComponente variant="blue">
-        <p>Children do componente</p>
-      </MeuComponente>
-    </div>
-  );
+  return <div>OLA</div>;
 }
 
 export default App;
